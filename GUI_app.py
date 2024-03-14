@@ -15,21 +15,20 @@ GUI.minsize(825, 475)
 GUI.maxsize(900, 475)
 
 # Add an icon
-GUI.iconbitmap('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/robot.ico')
+GUI.iconbitmap('robot.ico')
 
 # Button Images
-rightButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/right.png').resize((40, 40), Image.BOX)
-leftButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/left.png').resize((40, 40), Image.BOX)
-yUpButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/y_up.png').resize((40, 40), Image.BOX)
-yDownButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/y_down.png').resize((40, 40), Image.BOX)
-zUpButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/z_up.png').resize((40, 40), Image.BOX)
-zDownButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/z_down.png').resize((40, 40), Image.BOX)
-homeButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/home.png').resize((40, 40), Image.BOX)
-stopButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/stop.png').resize((40, 40), Image.BOX)
-pauseButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/pause.png').resize((40, 40), Image.BOX)
-recordButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/record.png').resize((500, 500), Image.BOX)
-stopRecButton = Image.open('C:/Users/Nari/PycharmProjects/GUI_Functions/icons/stop_rec.png').resize((500, 500),
-                                                                                                    Image.BOX)
+rightButton = Image.open('right.png').resize((40, 40), Image.BOX)
+leftButton = Image.open('left.png').resize((40, 40), Image.BOX)
+yUpButton = Image.open('y_up.png').resize((40, 40), Image.BOX)
+yDownButton = Image.open('y_down.png').resize((40, 40), Image.BOX)
+zUpButton = Image.open('z_up.png').resize((40, 40), Image.BOX)
+zDownButton = Image.open('z_down.png').resize((40, 40), Image.BOX)
+homeButton = Image.open('home.png').resize((40, 40), Image.BOX)
+stopButton = Image.open('stop.png').resize((40, 40), Image.BOX)
+pauseButton = Image.open('pause.png').resize((40, 40), Image.BOX)
+recordButton = Image.open('record.png').resize((500, 500), Image.BOX)
+stopRecButton = Image.open('stop_rec.png').resize((500, 500), Image.BOX)
 
 # Convert images to CTkImage objects
 rightButton_ctk = ctk.CTkImage(rightButton)
@@ -245,3 +244,8 @@ status.pack(side='bottom', expand=True, anchor='s', fill='x')
 # func.configure_grid()
 
 GUI.mainloop()
+
+
+# from main_app import canvas
+#
+# canvas()
