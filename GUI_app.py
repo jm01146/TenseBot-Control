@@ -52,16 +52,16 @@ class GUI(customtkinter.CTk):
         self.leftButton = Image.open('left.png').resize((40, 40), Image.BOX)
         self.yUpButton = Image.open('y_up.png').resize((40, 40), Image.BOX)
         self.yDownButton = Image.open('y_down.png').resize((40, 40), Image.BOX)
-        self.StartAuto = Image.open('record.png').resize((40, 40), Image.BOX)
-        self.StopAuto = Image.open('stop.png').resize((40, 40), Image.BOX)
+        self.startAuto = Image.open('record.png').resize((40, 40), Image.BOX)
+        self.stopAuto = Image.open('stop.png').resize((40, 40), Image.BOX)
         self.homeButton = Image.open('home.png').resize((40, 40), Image.BOX)
 
         self.rightButton_ctk = customtkinter.CTkImage(self.rightButton)
         self.leftButton_ctk = customtkinter.CTkImage(self.leftButton)
         self.yUpButton_ctk = customtkinter.CTkImage(self.yUpButton)
         self.yDownButton_ctk = customtkinter.CTkImage(self.yDownButton)
-        self.StartAuto_ctk = customtkinter.CTkImage(self.StartAuto)
-        self.StopAuto_ctk = customtkinter.CTkImage(self.StopAuto)
+        self.startAuto_ctk = customtkinter.CTkImage(self.StartAuto)
+        self.stopAuto_ctk = customtkinter.CTkImage(self.StopAuto)
         self.homeButton_ctk = customtkinter.CTkImage(self.homeButton)
 
         self.leftMargin = customtkinter.CTkLabel(self.buttonsFrame, text="", width=10)
@@ -102,7 +102,7 @@ class GUI(customtkinter.CTk):
                                                    corner_radius=25,
                                                    command=self.down_click)
 
-        self.StartAuto = customtkinter.CTkButton(self.buttonsFrame, image=self.StartAuto_ctk, text="Start Auto Control",
+        self.startAuto = customtkinter.CTkButton(self.buttonsFrame, image=self.StartAuto_ctk, text="Start Auto Control",
                                                  font=("New Frank Bold", 15),
                                                  hover_color=self.hoverB, width=50, height=40, compound="top",
                                                  text_color="black",
@@ -110,7 +110,7 @@ class GUI(customtkinter.CTk):
                                                  corner_radius=25,
                                                  command=self.startauto_click)
 
-        self.StopAuto = customtkinter.CTkButton(self.buttonsFrame, image=self.StopAuto_ctk, text="Start Manual Control",
+        self.stopAuto = customtkinter.CTkButton(self.buttonsFrame, image=self.StopAuto_ctk, text="Start Manual Control",
                                                 font=("New Frank Bold", 15),
                                                 hover_color=self.hoverB, width=50, height=40, compound="top",
                                                 text_color="black",
@@ -136,8 +136,8 @@ class GUI(customtkinter.CTk):
         self.leftButton.grid(row=2, column=1)
         self.yUpButton.grid(row=1, column=2)
         self.yDownButton.grid(row=3, column=2)
-        self.StartAuto.grid(row=5, column=1)
-        self.StopAuto.grid(row=5, column=3)
+        self.startAuto.grid(row=5, column=1)
+        self.stopAuto.grid(row=5, column=3)
         self.homeButton.grid(row=6, column=2, pady=50)
 
     def right_click(self):
