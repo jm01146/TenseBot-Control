@@ -1,41 +1,45 @@
+# Importing Libraries
 import serial.tools.list_ports
+import re
 
-def list_ports():
-    # Grabs all ports in use or registered in device
-    ports = serial.tools.list_ports.comports()
-    # Stores it in easy string format
-    ports_list = [str(one_port) for one_port in ports]
-    return ports_list
 
-def select_port():
-    # Prints for user to select. WARNING: Grab smallest port with bluetooth address.
-    # Ex. COM25 (Bluetooth) and COM26 (Bluetooth) select COM25
-    printPorts = print(list_ports())
-    ports_list = list_ports()
-    val = input('Select Port: COM')
-    # User selection for port to be used
-    for port in ports_list:
-        if port.startswith('COM' + str(val)):
-            return 'COM' + str(val)
-    raise ValueError("Port not found")
+class Ports(serial.Serial):
+    def __init__(self):
+        super().__init__()
+        # Taking serialInst adn scanningPorts as Objects that have the properties of Serial Functions
+        self.serialInst = serial.Serial()
+        self.scanningPorts = serial.tools.list_ports.comports()
 
-# Port way to open at the apporiate addresses and baudrate
-def open_serial(port):
-    serial_inst = serial.Serial()
-    serial_inst.baudrate = 9600
-    serial_inst.port = port
-    serial_inst.open()
-    return serial_inst
+        # Setting the values that will be gathered from the GUI
+        self.serialInst.baudrate = 9600
+        self.portName = None
+        self.portList = None
+        self.com = None
 
-# Send commands to serial arduino
-def send_command(serial_inst):
-    while True:
-        command = input('Arduino Command: (ON/OFF); ')
-        serial_inst.write(command.encode('utf-8'))
-        if command == 'exit':
-            break
+    # Making a function that Prints all the Ports
+    def list_port(self):
+        ports_listed = []
+        for ports in self.scanningPorts:
+            ports_listed.append(str(ports))
+        self.portList = ports_listed[:]
+        return self.portList
 
-# Example to run the entire code
-#     port = select_port()
-#     serial_connection = open_serial(port)
-#     send_command(serial_connection)
+    # Way for the GUI device to select the baudrate
+    def baudrate_selection(self, gui_baudrate):
+        self.serialInst.baudrate = gui_baudrate
+
+    # Way for the GUI device to select the COM Device
+    def comm_selection(self, gui_com):
+        self.com = gui_com
+        match = re.search(r'COM(\d+)', self.com)
+        if match:
+            self.com = str(match.group())
+
+    # Way for the GUI device to connect to COM Device
+    def connect(self):
+        self.serialInst.port = self.com
+        self.serialInst.open()
+
+    # Way for the GUI device to send to COM Device
+    def connect_send(self, command):
+        self.serialInst.write(command.encode('utf-8'))
