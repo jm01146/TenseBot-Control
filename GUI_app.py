@@ -185,10 +185,10 @@ class GUI(customtkinter.CTk):
         self.killButton.grid(row=6, column=2, pady=50)
 
     def right_click(self):
-        self.port_selector.connect_send('H')
+        self.port_selector.send('H')
 
     def left_click(self):
-        self.port_selector.connect_send('L')
+        self.port_selector.send('L')
 
     def up_click(self):
         print('up')
