@@ -41,5 +41,5 @@ class Ports(serial.Serial):
         self.serialInst.open()
 
     # Way for the GUI device to send to COM Device
-    def connect_send(self, command):
+    def send(self, command):
         self.serialInst.write(command.encode('utf-8'))
