@@ -43,3 +43,6 @@ class Ports(serial.Serial):
     # Way for the GUI device to send to COM Device
     def send(self, command):
         self.serialInst.write(command.encode('utf-8'))
+
+    def disconnect(self):
+        self.serialInst.close()
