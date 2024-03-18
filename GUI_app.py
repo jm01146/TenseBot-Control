@@ -185,16 +185,16 @@ class GUI(customtkinter.CTk):
         self.killButton.grid(row=6, column=2, pady=50)
 
     def right_click(self):
-        self.port_selector.send('H')
+        self.port_selector.send('R')
 
     def left_click(self):
         self.port_selector.send('L')
 
     def up_click(self):
-        print('up')
+        self.port_selector.send('U')
 
     def down_click(self):
-        print('down')
+        self.port_selector.send('D')
 
     def startauto_click(self):
         self.show_color_detection = True
@@ -203,10 +203,10 @@ class GUI(customtkinter.CTk):
         self.show_color_detection = False
 
     def kill_click(self):
-        print('kill')
+        self.port_selector.send('K')
 
     def home(self):
-        print('homing')
+        self.port_selector.send('H')
 
     def update_frame(self):
         ret, frame = self.cap.read()
@@ -216,6 +216,13 @@ class GUI(customtkinter.CTk):
             mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.kernel)
             mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel)
             mask_contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if len(mask_contours) != 0:
+                for mask_contours in mask_contours:
+                    if cv2.contourArea(mask_contours) > 500:
+                        x, y, w, h = cv2.boundingRect(mask_contours)
+                        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 3)
+                        coordinates = f"{x},{y}\n"
+                        self.port_selector.send(coordinates)
             results = frame.copy()
             results = cv2.drawContours(results, mask_contours, -1, (0, 0, 255), 3)
             if ret:
@@ -259,3 +266,6 @@ class GUI(customtkinter.CTk):
 
     def select_device(self):
         self.port_selector.connect()
+
+    def disconnect_device(self):
+        self.port_selector.disconnect()
