@@ -24,25 +24,26 @@ class Ports(serial.Serial):
         self.portList = ports_listed[:]
         return self.portList
 
-    # Way for the GUI device to select the baudrate
+    # Way for the GUI software to select the baudrate
     def baudrate_selection(self, gui_baudrate):
         self.serialInst.baudrate = gui_baudrate
 
-    # Way for the GUI device to select the COM Device
+    # Way for the GUI software to select the COM Device
     def comm_selection(self, gui_com):
         self.com = gui_com
         match = re.search(r'COM(\d+)', self.com)
         if match:
             self.com = str(match.group())
 
-    # Way for the GUI device to connect to COM Device
+    # Way for the GUI software to connect to COM Device
     def connect(self):
         self.serialInst.port = self.com
         self.serialInst.open()
 
-    # Way for the GUI device to send to COM Device
+    # Way for the GUI software to send to COM Device
     def send(self, command):
         self.serialInst.write(command.encode('utf-8'))
 
+    # Way for the GUI software to disconnect from COM device
     def disconnect(self):
         self.serialInst.close()
