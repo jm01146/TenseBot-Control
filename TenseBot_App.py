@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 import cv2
 import numpy as np
 from commsArduino import Ports
-from Color_Setting import Color
+from ColorSetting import Color
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
