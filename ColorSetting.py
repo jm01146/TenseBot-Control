@@ -5,6 +5,7 @@ import cv2
 class Color:
     def __init__(self):
         super().__init__()
+        # Setting the features of the color detection
         self.lowerLimit = []
         self.higherLimit = []
         self.lowerLimitRed = []
@@ -14,6 +15,7 @@ class Color:
         self.maskRed = None
 
     def color_detect(self, gui_color, hsv):
+        # Takes GUI software's choice and changes Limits for color detection
         self.colorInput = gui_color
         if gui_color == 'Yellow':
             self.lowerLimit = np.array([20, 50, 50], dtype=np.uint8)
