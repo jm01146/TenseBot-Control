@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import cv2
 import numpy as np
 from commsArduino import Ports
+from Color_Setting import Color
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
@@ -46,6 +47,7 @@ class GUI(customtkinter.CTk):
         self.setColor = None
         self.kernel = np.ones((25, 25), np.uint8)
         self.show_color_detection = False
+        self.color = Color()
         self.update_frame()
 
         self.status = Label(self.statusFrame, text="FIU - School of Engineering and Computing",
@@ -78,6 +80,7 @@ class GUI(customtkinter.CTk):
 
         self.dropdown4 = CustomDropdownMenu(widget=self.button_4, padx=-400, pady=-20, corner_radius=5, width=100)
         self.dropdown4.add_option(option="Connect to Device", command=self.select_device)
+        self.dropdown4.add_option(option="Disconnect Device", command=self.disconnect_device)
 
         self.iconbitmap('robot.ico')
         self.rightButton = Image.open('right.png').resize((40, 40), Image.BOX)
@@ -212,7 +215,7 @@ class GUI(customtkinter.CTk):
         ret, frame = self.cap.read()
         if self.show_color_detection:
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            mask = cv2.inRange(hsv, self.green_lower, self.green_upper)
+            mask = self.color.color_detect(self.setColor, hsv)
             mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.kernel)
             mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel)
             mask_contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -252,7 +255,7 @@ class GUI(customtkinter.CTk):
 
     def set_color(self, color):
         self.setColor = color
-        return print(self.setColor)
+        return
 
     def set_port(self, port):
         self.setPort = port
