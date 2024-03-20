@@ -7,6 +7,7 @@ import numpy as np
 from CommsArduino import Ports
 from ColorSetting import Color
 
+# Setting the aesthetics of the frame
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 
@@ -14,6 +15,7 @@ customtkinter.set_default_color_theme("blue")
 class GUI(customtkinter.CTk):
     def __init__(self):
         super().__init__()
+        # Setting the menus and frames
         self.menu_bar = None
         self.title("TenseBot Control")
         self.geometry('800x500')
@@ -38,6 +40,7 @@ class GUI(customtkinter.CTk):
         self.feed_canvas = Canvas(self.secFrame, width=640, height=480)
         self.feed_canvas.grid(row=0, column=0, padx=10, pady=10)
 
+        # Camera functions
         self.camera_label = customtkinter.CTkLabel(self.feed_canvas, text='')
         self.camera_label.pack()
         self.color_list = ['Red', 'Blue', 'Green', 'Yellow']
@@ -50,16 +53,19 @@ class GUI(customtkinter.CTk):
         self.color = Color()
         self.update_frame()
 
+        # Status bar
         self.status = Label(self.statusFrame, text="FIU - School of Engineering and Computing",
                             bd=1, relief='sunken', anchor=W, font=('Tahoma', 15))
         self.status.pack(side='bottom', expand=True, anchor='s', fill='x')
 
+        # Communication background
         self.port_selector = Ports()
         self.printing_port = self.port_selector.list_port()
         self.baudrate = ['9600', '57600', '115200']
         self.setBaudrate = None
         self.setPort = None
 
+        # Menus and menu functionality
         self.menu = CTkTitleMenu(self, padx=10, x_offset=325, y_offset=12)
         self.button_1 = self.menu.add_cascade("Comports")
         self.button_2 = self.menu.add_cascade('Baudrate')
@@ -82,6 +88,7 @@ class GUI(customtkinter.CTk):
         self.dropdown4.add_option(option="Connect to Device", command=self.select_device)
         self.dropdown4.add_option(option="Disconnect Device", command=self.disconnect_device)
 
+        # Buttons and functionality
         self.iconbitmap('robot.ico')
         self.rightButton = Image.open('right.png').resize((40, 40), Image.BOX)
         self.leftButton = Image.open('left.png').resize((40, 40), Image.BOX)
@@ -187,6 +194,7 @@ class GUI(customtkinter.CTk):
         self.stopAuto.grid(row=5, column=3)
         self.killButton.grid(row=6, column=2, pady=50)
 
+    # Functions for every option and button click
     def right_click(self):
         self.port_selector.send('R')
 
