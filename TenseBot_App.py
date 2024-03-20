@@ -4,7 +4,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import cv2
 import numpy as np
-from commsArduino import Ports
+from CommsArduino import Ports
 from ColorSetting import Color
 
 customtkinter.set_appearance_mode("dark")
