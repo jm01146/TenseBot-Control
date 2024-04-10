@@ -8,6 +8,7 @@ Team Members:
 * Daniel Rodriguez (Team Member) email: jrodr1405@fiu.edu
 * Vivish Gieowar-Singh (Team Member) email: vgieo001@fiu.edu
 * Carlos Sanabria (Team Member) email: csana011@fiu.edu
+Sponsored by: Dr. Kaur and the FIU RDF Lab
 
 These are the components we used for the robot we created: HC-06 Bluetooth Module, Aa4988 motor driver, Pololu 12V, 2.2A Step-Down Voltage Regulator D24V22F12, and Stepper NEMA 17 motors
 ![circuit](https://github.com/jm01146/TenseBot-Control/assets/59844100/98bbffdd-5261-472a-81bf-2402b0952ccd)
