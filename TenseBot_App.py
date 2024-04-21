@@ -1,21 +1,24 @@
+# Importing Libraries
+from commsArduino import Ports
+from ColorSetting import Color
 import customtkinter
 from CTkMenuBar import *
 from tkinter import *
 from PIL import Image, ImageTk
-import cv2
 import numpy as np
-from CommsArduino import Ports
-from ColorSetting import Color
+import cv2
 
-# Setting the aesthetics of the frame
+
+# Setting the appearance for the GUI
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 
 
+# Setting the buttons, process, and features of the GUI
 class GUI(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-        # Setting the menus and frames
+        # Creating the frames for the GUI to place the buttons and features
         self.menu_bar = None
         self.title("TenseBot Control")
         self.geometry('800x500')
@@ -40,7 +43,7 @@ class GUI(customtkinter.CTk):
         self.feed_canvas = Canvas(self.secFrame, width=640, height=480)
         self.feed_canvas.grid(row=0, column=0, padx=10, pady=10)
 
-        # Camera functions
+        # Processes for the color detection
         self.camera_label = customtkinter.CTkLabel(self.feed_canvas, text='')
         self.camera_label.pack()
         self.color_list = ['Red', 'Blue', 'Green', 'Yellow']
@@ -53,61 +56,64 @@ class GUI(customtkinter.CTk):
         self.color = Color()
         self.update_frame()
 
-        # Status bar
         self.status = Label(self.statusFrame, text="FIU - School of Engineering and Computing",
                             bd=1, relief='sunken', anchor=W, font=('Tahoma', 15))
         self.status.pack(side='bottom', expand=True, anchor='s', fill='x')
 
-        # Communication background
+        # Processes for the ports connection
         self.port_selector = Ports()
         self.printing_port = self.port_selector.list_port()
         self.baudrate = ['9600', '57600', '115200']
         self.setBaudrate = None
         self.setPort = None
 
-        # Menus and menu functionality
+        # Creating the menu and options
         self.menu = CTkTitleMenu(self, padx=10, x_offset=325, y_offset=12)
         self.button_1 = self.menu.add_cascade("Comports")
         self.button_2 = self.menu.add_cascade('Baudrate')
         self.button_3 = self.menu.add_cascade("Colors Detecting")
         self.button_4 = self.menu.add_cascade("Connect!")
 
+        # Listing the possible port options on start up and readies for connection
         self.dropdown1 = CustomDropdownMenu(widget=self.button_1, padx=10, pady=-20, corner_radius=5, width=100)
         for x in self.printing_port:
             self.dropdown1.add_option(option=x, command=lambda r=x: self.set_port(r))
 
+        # Listing the possible baudrate options and readies for connection
         self.dropdown2 = CustomDropdownMenu(widget=self.button_2, padx=-120, pady=-20, corner_radius=5, width=100)
         for x in self.baudrate:
             self.dropdown2.add_option(option=x, command=lambda r=x: self.set_baudrate(r))
 
+        # Listing the possible color detection options and readies for usage
         self.dropdown3 = CustomDropdownMenu(widget=self.button_3, padx=-225, pady=-20, corner_radius=5, width=100)
         for x in self.color_list:
             self.dropdown3.add_option(option=x, command=lambda r=x: self.set_color(r))
 
+        # Give the option to connect or disconnect from COM device
         self.dropdown4 = CustomDropdownMenu(widget=self.button_4, padx=-400, pady=-20, corner_radius=5, width=100)
         self.dropdown4.add_option(option="Connect to Device", command=self.select_device)
         self.dropdown4.add_option(option="Disconnect Device", command=self.disconnect_device)
 
-        # Buttons and functionality
+        # Set up buttons with their respective images
         self.iconbitmap('robot.ico')
         self.rightButton = Image.open('right.png').resize((40, 40), Image.BOX)
         self.leftButton = Image.open('left.png').resize((40, 40), Image.BOX)
-        self.yUpButton = Image.open('y_up.png').resize((40, 40), Image.BOX)
-        self.yDownButton = Image.open('y_down.png').resize((40, 40), Image.BOX)
+        self.forwardButton = Image.open('y_up.png').resize((40, 40), Image.BOX)
+        self.backwardButton = Image.open('y_down.png').resize((40, 40), Image.BOX)
         self.homeButton = Image.open('home.png').resize((40, 40), Image.BOX)
         self.startAuto = Image.open('record.png').resize((40, 40), Image.BOX)
         self.stopAuto = Image.open('stop.png').resize((40, 40), Image.BOX)
-        self.killButton = Image.open('stop_rec.png').resize((40, 40), Image.BOX)
 
+        # Link button as clickable image
         self.rightButton_ctk = customtkinter.CTkImage(self.rightButton)
         self.leftButton_ctk = customtkinter.CTkImage(self.leftButton)
-        self.yUpButton_ctk = customtkinter.CTkImage(self.yUpButton)
-        self.yDownButton_ctk = customtkinter.CTkImage(self.yDownButton)
+        self.forwardButton_ctk = customtkinter.CTkImage(self.forwardButton)
+        self.backwardButton_ctk = customtkinter.CTkImage(self.backwardButton)
         self.homeButton_ctk = customtkinter.CTkImage(self.homeButton)
         self.startAuto_ctk = customtkinter.CTkImage(self.startAuto)
         self.stopAuto_ctk = customtkinter.CTkImage(self.stopAuto)
-        self.killButton_ctk = customtkinter.CTkImage(self.killButton)
 
+        # Creating margins for stylizing
         self.leftMargin = customtkinter.CTkLabel(self.buttonsFrame, text="", width=10)
         self.rightMargin = customtkinter.CTkLabel(self.buttonsFrame, text="", width=10)
         self.topMargin = customtkinter.CTkLabel(self.buttonsFrame, text="", height=1)
@@ -119,32 +125,30 @@ class GUI(customtkinter.CTk):
                                                    hover_color=self.hoverB, width=50, height=40, compound="top",
                                                    text_color="black",
                                                    border_color="black", border_width=2, border_spacing=1,
-                                                   corner_radius=25,
-                                                   command=self.right_click)
+                                                   corner_radius=25, command=self.right_click)
 
         self.leftButton = customtkinter.CTkButton(self.buttonsFrame, image=self.leftButton_ctk, text="Left",
                                                   font=("New Frank Bold", 15),
                                                   hover_color=self.hoverB, width=50, height=40, compound="top",
                                                   text_color="black",
                                                   border_color="black", border_width=2, border_spacing=1,
-                                                  corner_radius=25,
-                                                  command=self.left_click)
+                                                  corner_radius=25, command=self.left_click)
 
-        self.yUpButton = customtkinter.CTkButton(self.buttonsFrame, image=self.yUpButton_ctk, text="Up",
-                                                 font=("New Frank Bold", 15),
-                                                 hover_color=self.hoverB, width=50, height=40, compound="top",
-                                                 text_color="black",
-                                                 border_color="black", border_width=2, border_spacing=1,
-                                                 corner_radius=30,
-                                                 command=self.up_click)
+        self.forwardButton = customtkinter.CTkButton(self.buttonsFrame, image=self.forwardButton_ctk, text="Forward",
+                                                     font=("New Frank Bold", 15),
+                                                     hover_color=self.hoverB, width=50, height=40, compound="top",
+                                                     text_color="black",
+                                                     border_color="black", border_width=2, border_spacing=1,
+                                                     corner_radius=30,
+                                                     command=self.forward_click)
 
-        self.yDownButton = customtkinter.CTkButton(self.buttonsFrame, image=self.yDownButton_ctk, text="Down",
-                                                   font=("New Frank Bold", 15),
-                                                   hover_color=self.hoverB, width=50, height=40, compound="top",
-                                                   text_color="black",
-                                                   border_color="black", border_width=2, border_spacing=1,
-                                                   corner_radius=25,
-                                                   command=self.down_click)
+        self.backwardButton = customtkinter.CTkButton(self.buttonsFrame, image=self.backwardButton_ctk, text="Backward",
+                                                      font=("New Frank Bold", 15),
+                                                      hover_color=self.hoverB, width=50, height=40, compound="top",
+                                                      text_color="black",
+                                                      border_color="black", border_width=2, border_spacing=1,
+                                                      corner_radius=25,
+                                                      command=self.backward_click)
 
         self.homeButton = customtkinter.CTkButton(self.buttonsFrame, image=self.homeButton_ctk,
                                                   text="Home",
@@ -171,15 +175,6 @@ class GUI(customtkinter.CTk):
                                                 corner_radius=25,
                                                 command=self.stopauto_click)
 
-        self.killButton = customtkinter.CTkButton(self.buttonsFrame, image=self.killButton_ctk,
-                                                  text="E-Stop",
-                                                  font=("New Frank Bold", 15),
-                                                  hover_color=self.hoverB, width=50, height=40, compound="top",
-                                                  text_color="black",
-                                                  border_color="black", border_width=2, border_spacing=1,
-                                                  corner_radius=25,
-                                                  command=self.kill_click)
-
         self.leftMargin.grid(column=0, padx=5, pady=5)
         self.rightMargin.grid(column=4, padx=5, pady=5)
         self.topMargin.grid(row=0, pady=5)
@@ -187,38 +182,66 @@ class GUI(customtkinter.CTk):
 
         self.rightButton.grid(row=2, column=3)
         self.leftButton.grid(row=2, column=1)
-        self.yUpButton.grid(row=1, column=2)
-        self.yDownButton.grid(row=3, column=2)
+        self.forwardButton.grid(row=1, column=2)
+        self.backwardButton.grid(row=3, column=2)
         self.homeButton.grid(row=2, column=2, pady=25)
         self.startAuto.grid(row=5, column=1)
         self.stopAuto.grid(row=5, column=3)
-        self.killButton.grid(row=6, column=2, pady=50)
 
-    # Functions for every option and button click
+    # Creating right button click function
     def right_click(self):
-        self.port_selector.send('R')
+        self.port_selector.send('R\n')
 
+    # Creating left button click function
     def left_click(self):
-        self.port_selector.send('L')
+        self.port_selector.send('L\n')
 
-    def up_click(self):
-        self.port_selector.send('U')
+    # Creating forward button click function
+    def forward_click(self):
+        self.port_selector.send('F\n')
 
-    def down_click(self):
-        self.port_selector.send('D')
+    # Creating backward button click function
+    def backward_click(self):
+        self.port_selector.send('D\n')
 
+    # Creating auto button click function
     def startauto_click(self):
         self.show_color_detection = True
 
+    # Creating manual button click function
     def stopauto_click(self):
         self.show_color_detection = False
 
-    def kill_click(self):
-        self.port_selector.send('K')
-
+    # Creating home button click function
     def home(self):
-        self.port_selector.send('H')
+        self.port_selector.send('H\n')
 
+    # Processing the color option from menu
+    def set_color(self, color):
+        self.setColor = color
+        return
+
+    # Processing the port option from menu
+    def set_port(self, port):
+        self.setPort = port
+        self.port_selector.comm_selection(port)
+        return
+
+    # Processing the baudrate option from menu
+    def set_baudrate(self, rate):
+        self.setBaudrate = int(rate)
+        self.port_selector.baudrate_selection(rate)
+        return
+
+    # Function to connect to device
+    def select_device(self):
+        self.port_selector.connect()
+
+    # Function to disconnect to device
+    def disconnect_device(self):
+        self.port_selector.disconnect()
+
+    # Creating the color detection function
     def update_frame(self):
         ret, frame = self.cap.read()
         if self.show_color_detection:
@@ -260,23 +283,3 @@ class GUI(customtkinter.CTk):
 
             # Call this method again after 10ms
             self.after(10, self.update_frame)
-
-    def set_color(self, color):
-        self.setColor = color
-        return
-
-    def set_port(self, port):
-        self.setPort = port
-        self.port_selector.comm_selection(port)
-        return
-
-    def set_baudrate(self, rate):
-        self.setBaudrate = int(rate)
-        self.port_selector.baudrate_selection(rate)
-        return
-
-    def select_device(self):
-        self.port_selector.connect()
-
-    def disconnect_device(self):
-        self.port_selector.disconnect()
