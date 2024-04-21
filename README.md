@@ -1,5 +1,5 @@
 # TenseBot-Control
-FIU EE Senior Design Project for Team 13 Spring 2024
+FIU EE Senior Design Project for Team 13 Spring 2024 (We won first place not important but I am proud)
 
 Team Members:
 * Dr.Pozdin (Mentor) email: vpozdin@fiu.edu
