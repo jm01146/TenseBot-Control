@@ -1,11 +1,12 @@
+# Importing Libraries
 import numpy as np
 import cv2
 
 
+# Creating the class for the color detection for the GUI
 class Color:
     def __init__(self):
         super().__init__()
-        # Setting the features of the color detection
         self.lowerLimit = []
         self.higherLimit = []
         self.lowerLimitRed = []
@@ -14,8 +15,8 @@ class Color:
         self.mask = None
         self.maskRed = None
 
+    # Setting the lower and upper limits for the OpenCV color detection based on GUI selection
     def color_detect(self, gui_color, hsv):
-        # Takes GUI software's choice and changes Limits for color detection
         self.colorInput = gui_color
         if gui_color == 'Yellow':
             self.lowerLimit = np.array([20, 50, 50], dtype=np.uint8)
