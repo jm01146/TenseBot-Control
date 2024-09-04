@@ -1,4 +1,4 @@
-from GUI_app import GUI
+from TenseBot_App import GUI
 
 
 app = GUI()
