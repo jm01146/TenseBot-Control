@@ -21,12 +21,12 @@ For using the device this link shows the usage cases for this control software. 
 
 However not in the video was how the color detection works. 
 You can choose what color you want to detect and the robot will respond accordingly.
-*We have not added this part as of yet but by the end of the semster we will have this done*
 This is out figure to showcase the color option.
 ![image](https://github.com/jm01146/TenseBot-Control/assets/59844100/62d63483-08e5-4c6b-9273-7d36b83ae6b9)
 
 Last but not least. We created a shield to reduce the amount of wiring needed for the project. This allows the entire series of components to be on one platform and easily replaceable if broken.
 ![image](https://github.com/jm01146/TenseBot-Control/assets/59844100/f1daa60e-cbbf-4800-a897-1da333bf714e)
+# NOTE: The polarity of the XT60 is flipped meaning if you tried to connect it to the 12V regulator it will pop it I need to remake the schematic
 
 In case there becomes a need to make more here is the entire Gerber file to make them and modify if you need.
 We are also adding the mounting plate to hold the nema 17 motors and arduino.
