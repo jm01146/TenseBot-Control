@@ -28,7 +28,7 @@ The entire GUI is customizable for three reasons: If you want to add more idenif
 
 Last but not least. We created a shield to reduce the amount of wiring needed for the project. This allows the entire series of components to be on one platform and easily replaceable if broken.
 ![image](https://github.com/jm01146/TenseBot-Control/assets/59844100/f1daa60e-cbbf-4800-a897-1da333bf714e)
-# NOTE: The polarity of the XT60 is flipped meaning if you tried to connect it to the 12V regulator it will pop it I need to remake the schematic
+# NOTE: The polarity of the XT60 is flipped meaning if you tried to connect it to the 12V regulator it will pop it I need to remake the shield board
 
 In case there becomes a need to make more here is the entire Gerber file to make them and modify if you need.
 We are also adding the mounting plate to hold the nema 17 motors and arduino.
