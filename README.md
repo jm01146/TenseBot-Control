@@ -21,8 +21,10 @@ For using the device this link shows the usage cases for this control software. 
 
 However not in the video was how the color detection works. 
 You can choose what color you want to detect and the robot will respond accordingly.
-This is out figure to showcase the color option.
+This is our figure to showcase the color option.
 ![image](https://github.com/jm01146/TenseBot-Control/assets/59844100/62d63483-08e5-4c6b-9273-7d36b83ae6b9)
+
+The entire GUI is customizable for three reasons: If you want to add more idenifcation features like YoLo, or object detection, If you want to add more movement directions for different types of robots, If you don't like the color, because why not.
 
 Last but not least. We created a shield to reduce the amount of wiring needed for the project. This allows the entire series of components to be on one platform and easily replaceable if broken.
 ![image](https://github.com/jm01146/TenseBot-Control/assets/59844100/f1daa60e-cbbf-4800-a897-1da333bf714e)
