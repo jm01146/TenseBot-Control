@@ -1,10 +1,10 @@
 # Importing Libraries
-from CommsArduino import Ports
+from commsArduino import Ports
 from ColorSetting import Color
 import customtkinter
 from CTkMenuBar import *
 from tkinter import *
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk  
 import numpy as np
 import cv2
 
@@ -75,22 +75,22 @@ class GUI(customtkinter.CTk):
         self.button_4 = self.menu.add_cascade("Connect!")
 
         # Listing the possible port options on start up and readies for connection
-        self.dropdown1 = CustomDropdownMenu(widget=self.button_1, padx=10, pady=-20, corner_radius=5, width=100)
+        self.dropdown1 = CustomDropdownMenu(widget=self.button_1, padx=2, pady=5, corner_radius=5, width=100)
         for x in self.printing_port:
             self.dropdown1.add_option(option=x, command=lambda r=x: self.set_port(r))
 
         # Listing the possible baudrate options and readies for connection
-        self.dropdown2 = CustomDropdownMenu(widget=self.button_2, padx=-120, pady=-20, corner_radius=5, width=100)
+        self.dropdown2 = CustomDropdownMenu(widget=self.button_2, padx=2, pady=5, corner_radius=5, width=50)
         for x in self.baudrate:
             self.dropdown2.add_option(option=x, command=lambda r=x: self.set_baudrate(r))
 
         # Listing the possible color detection options and readies for usage
-        self.dropdown3 = CustomDropdownMenu(widget=self.button_3, padx=-225, pady=-20, corner_radius=5, width=100)
+        self.dropdown3 = CustomDropdownMenu(widget=self.button_3, padx=2, pady=5, corner_radius=5, width=100)
         for x in self.color_list:
             self.dropdown3.add_option(option=x, command=lambda r=x: self.set_color(r))
 
         # Give the option to connect or disconnect from COM device
-        self.dropdown4 = CustomDropdownMenu(widget=self.button_4, padx=-400, pady=-20, corner_radius=5, width=100)
+        self.dropdown4 = CustomDropdownMenu(widget=self.button_4, padx=2, pady=5, corner_radius=5, width=100)
         self.dropdown4.add_option(option="Connect to Device", command=self.select_device)
         self.dropdown4.add_option(option="Disconnect Device", command=self.disconnect_device)
 
